@@ -147,6 +147,31 @@ interface ChatConfig {
 }
 ```
 
+### Logging
+
+The SDK includes debug logging that can be controlled via the `enableLogging` configuration option:
+
+```typescript
+const chatConfig = {
+  baseUrl: 'https://api.yourcompany.com',
+  companyToken: 'your-company-token',
+  appKey: 'your-chat-app-key',
+  appSecret: 'your-chat-app-secret',
+
+  enableLogging: __DEV__,  // Recommended: logs only in development
+  // enableLogging: true,  // Always log (for debugging)
+  // enableLogging: false, // Never log (default, for production)
+};
+```
+
+When enabled, the SDK logs:
+- API requests and responses
+- Socket connection events
+- Registration field validation
+- Error details
+
+**Recommendation:** Use `enableLogging: __DEV__` to automatically enable logging during development and disable it in production builds.
+
 ### FcrmChatProvider
 
 The main provider component that wraps your app.

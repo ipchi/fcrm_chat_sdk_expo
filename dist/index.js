@@ -1012,6 +1012,14 @@ function FcrmChatProvider({
   const apiServiceRef = (0, import_react.useRef)(null);
   const socketServiceRef = (0, import_react.useRef)(null);
   const storageServiceRef = (0, import_react.useRef)(null);
+  const log = (0, import_react.useCallback)(
+    (message, ...args) => {
+      if (configWithDefaults.enableLogging) {
+        console.log(`[FCRM Chat] ${message}`, ...args);
+      }
+    },
+    [configWithDefaults.enableLogging]
+  );
   const [state, setState] = (0, import_react.useState)({
     isInitialized: false,
     isConnected: false,
@@ -1090,11 +1098,11 @@ function FcrmChatProvider({
         throw new ChatException("Services not initialized");
       }
       const requiredFields = state.remoteConfig?.requiredFields ?? {};
-      console.log("[FCRM Chat] Required fields:", JSON.stringify(requiredFields));
-      console.log("[FCRM Chat] User data keys:", Object.keys(userData));
+      log("Required fields:", JSON.stringify(requiredFields));
+      log("User data keys:", Object.keys(userData));
       for (const [key, label] of Object.entries(requiredFields)) {
         const value = userData[key];
-        console.log(`[FCRM Chat] Checking field '${key}' (label: '${label}'): value = '${value}'`);
+        log(`Checking field '${key}' (label: '${label}'): value = '${value}'`);
         if (value == null || String(value).trim() === "") {
           throw new ChatException(`Missing required field: ${label} (key: ${key})`);
         }
