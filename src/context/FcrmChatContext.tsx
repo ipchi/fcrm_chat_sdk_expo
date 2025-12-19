@@ -225,12 +225,16 @@ export function FcrmChatProvider({
         throw new ChatException('Services not initialized');
       }
 
-      // Validate required fields
+      // Validate required fields (with detailed logging)
       const requiredFields = state.remoteConfig?.requiredFields ?? {};
+      console.log('[FCRM Chat] Required fields:', JSON.stringify(requiredFields));
+      console.log('[FCRM Chat] User data keys:', Object.keys(userData));
+
       for (const [key, label] of Object.entries(requiredFields)) {
         const value = userData[key];
+        console.log(`[FCRM Chat] Checking field '${key}' (label: '${label}'): value = '${value}'`);
         if (value == null || String(value).trim() === '') {
-          throw new ChatException(`Missing required field: ${label}`);
+          throw new ChatException(`Missing required field: ${label} (key: ${key})`);
         }
       }
 
