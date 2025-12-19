@@ -1,6 +1,6 @@
 {
   "name": "@fcrm/chat-sdk-expo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "FCRM Chat SDK for Expo/React Native - Real-time chat integration",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
